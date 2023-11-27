@@ -12,9 +12,16 @@ export class Service {
     this.databases = new Databases(this.client);
     this.bucket = new Storage(this.client);
   }
-  async createPost({ title, slug, content, featuredImage, status, userId, likes }) {
+  async createPost({
+    title,
+    slug,
+    content,
+    featuredImage,
+    status,
+    userId,
+    likes,
+  }) {
     try {
-
       const createdPost = await this.databases.createDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
@@ -25,7 +32,7 @@ export class Service {
           userId,
           featuredImage,
           status,
-          likes
+          likes,
         }
       );
       return createdPost;
@@ -51,7 +58,7 @@ export class Service {
       console.log("appwrite:: updatePost", error);
     }
   }
-  async deletePost({slug}) {
+  async deletePost({ slug }) {
     try {
       await this.databases.deleteDocument(
         conf.appwriteDatabaseId,
@@ -64,9 +71,9 @@ export class Service {
       return false;
     }
   }
-  async getPost({slug}) {
+  async getPost({ slug }) {
     try {
-      const fetchedPost=await this.databases.getDocument(
+      const fetchedPost = await this.databases.getDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         slug
@@ -75,6 +82,18 @@ export class Service {
     } catch (error) {
       console.log("appwrite:: getPost", error);
       return false;
+    }
+  }
+
+  async searchPost({ slug }) {
+    try {
+      const fetchedPost = await this.databases.listDocuments(
+        conf.appwriteDatabaseId,
+        conf.appwriteCollectionId,
+        [Query.equal("title", [slug])]
+      );
+    } catch (error) {
+      throw error;
     }
   }
   async getPosts(queries = [Query.equal("status", "active")]) {
@@ -116,7 +135,6 @@ export class Service {
   }
 
   previewFile(fileId) {
-    
     try {
       return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
     } catch (error) {

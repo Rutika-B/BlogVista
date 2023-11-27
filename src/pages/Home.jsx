@@ -4,9 +4,14 @@ import Container from "../component/container/Container";
 import { PostCard } from "../component";
 import { Link } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
+import { useSelector } from "react-redux";
+import { RotatingLines } from "react-loader-spinner";
+import Loader from "../component/Loader";
 
 function Home() {
   const [posts, setPosts] = useState([]);
+  const userData = useSelector((state) => state.auth.userData);
+ 
   useEffect(() => {
     AppwriteService.getPosts([]).then((posts) => {
       if (posts) {
@@ -14,11 +19,19 @@ function Home() {
       }
     }, []);
   });
-  if (posts.length === 0) {
+  if (posts.length === 0 && userData) {
+    return (
+      <>
+        <Loader />
+      </>
+    );
+  } else if (userData === null) {
     return (
       <div className="w-full mx-auto my-auto justify-center items-center max-w-5xl">
         <aside className="relative overflow-hidde rounded-lg sm:mx-16 mx-2 sm:py-16">
-          <h2 className="text-4xl font-bold sm:text-5xl my-auto py-8">BlogVista</h2>
+          <h2 className="text-4xl font-bold sm:text-5xl my-auto py-8">
+            BlogVista
+          </h2>
 
           <TypeAnimation
             sequence={[

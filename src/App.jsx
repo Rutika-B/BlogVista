@@ -44,7 +44,13 @@ function App() {
       <div className="w-full block">
         <ThemeProvider value={{ lightTheme, DarkTheme, ThemeMode }}>
           <Header />
-          <main className={`w-full py-2 ${ThemeMode==='dark'? "dark:bg-black text-white":"bg-cyan-50"}`}>
+          <main
+            className={`w-full py-2 ${
+              ThemeMode === "dark"
+                ? "dark:bg-black"
+                : "bg-cyan-50"
+            }`}
+          >
             <Outlet />
           </main>
           <Footer />

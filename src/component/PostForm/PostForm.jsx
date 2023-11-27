@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Button, Input, RTE, Select } from "..";
 import appwriteService from "../../appwrite/service";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function PostForm({ post }) {
   const { register, handleSubmit, watch, setValue, control, getValues } =
@@ -18,6 +18,7 @@ export default function PostForm({ post }) {
 
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
+  const dispatch = useDispatch();
 
   const submit = async (data) => {
     if (post) {
@@ -39,23 +40,20 @@ export default function PostForm({ post }) {
       }
     } else {
       const file = await appwriteService.uploadFile(data.image[0]);
-      console.log("post file is successfully uploaded")
-      console.log(data);
-      
+      console.log("post file is successfully uploaded");
+
       if (file) {
         console.log("uploading post..");
         const fileId = file.$id;
         data.featuredImage = fileId;
-        
-        const dbPost = await appwriteService.createPost({
+
+        const postData = await appwriteService.createPost({
           ...data,
           userId: userData?.$id,
         });
-        
-        if (dbPost) {
-          console.log("document uploaded successfully")
-          navigate(`/post/${dbPost.$id}`);
-          console.log("uploaded");
+
+        if (postData) {
+          navigate(`/post/${postData.$id}`);
         }
       }
     }

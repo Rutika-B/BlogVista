@@ -41,7 +41,7 @@ function Header() {
   ];
   const {ThemeMode}=useTheme();
   return (
-    <header className={`w-full shadow sticky z-50 top-0 py-2 ${ThemeMode==='dark'? "dark:bg-black dark:text-white dark:shadow-slate-50":"bg-cyan-50"}`}>
+    <header className={`w-full shadow sticky z-50 top-0 py-2 ${ThemeMode==='dark'? "dark:bg-slate-900 dark:text-white dark:shadow-slate-50":"bg-cyan-50"}`}>
       <Container>
         <nav className="flex flex-wrap border-cyan-300 px-4 lg:px-6 py-2.5">
           <div className="mr-4">
