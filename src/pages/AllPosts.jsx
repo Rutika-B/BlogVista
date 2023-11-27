@@ -18,6 +18,7 @@ function AllPosts() {
   if (posts.length === 0 ) {
     return (
       <>
+      
         <Loader />
       </>
     );
