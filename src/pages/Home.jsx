@@ -44,17 +44,6 @@ function Home() {
             style={{ fontSize: "2em", display: "inline-block" }}
             repeat={Infinity}
           />
-          <TypeAnimation
-            sequence={[
-              // Same substring at the start will only be typed out once, initially
-              "Empowering Minds, Enriching Lives: Navigate Our Diverse Content Hub",
-              1000,
-            ]}
-            wrapper="span"
-            speed={50}
-            style={{ fontSize: "2em", display: "inline-block" }}
-            repeat={Infinity}
-          />
           <div className="lg order-2 mt-8 items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
