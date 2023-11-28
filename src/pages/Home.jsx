@@ -22,7 +22,6 @@ function Home() {
   if (posts.length === 0 && userData) {
     return (
       <>
-    
         <Loader />
       </>
     );
@@ -34,6 +33,17 @@ function Home() {
             BlogVista
           </h2>
 
+          <TypeAnimation
+            sequence={[
+              // Same substring at the start will only be typed out once, initially
+              "Empowering Minds, Enriching Lives: Navigate Our Diverse Content Hub",
+              1000,
+            ]}
+            wrapper="span"
+            speed={50}
+            style={{ fontSize: "2em", display: "inline-block" }}
+            repeat={Infinity}
+          />
           <TypeAnimation
             sequence={[
               // Same substring at the start will only be typed out once, initially
