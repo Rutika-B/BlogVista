@@ -22,7 +22,7 @@ function Home() {
   if (posts.length === 0 && userData) {
     return (
       <>
-      
+    
         <Loader />
       </>
     );
